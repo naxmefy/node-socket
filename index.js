@@ -1,7 +1,7 @@
 const delegate = require('delegates')
 const net = require('net')
 
-exports = module.exports = function Socket(options) {
+function Socket(options) {
     if (!options) options = {}
     this.errorsToAvoid = options.errorsToAvoid || [
         'ECONNREFUSED',
@@ -125,6 +125,7 @@ properties.forEach(function (property) {
     delegate(socket, 'socket').access(property)
 })
 
+exports = module.exports = Socket
 
 /**
  * Expose connect method
