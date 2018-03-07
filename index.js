@@ -2,6 +2,7 @@ const delegate = require('delegates')
 const net = require('net')
 
 exports = module.exports = function Socket(options) {
+    if (!options) options = {}
     this.errorsToAvoid = options.errorsToAvoid || [
         'ECONNREFUSED',
         'ECONNRESET',
