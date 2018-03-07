@@ -1,0 +1,16 @@
+{
+  "name": "@naxmefy/socket",
+  "description": "autoreconnecting net.Socket implementation",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "index.js",
+  "homepage": "https://github.com/naxmefy/node-socket",
+  "author": {
+    "name": "Mohammed R.W. Neundorf",
+    "email": "m.neundorf@live.de",
+    "url": "https://github.com/naxmefy"
+  },
+  "dependencies": {
+    "delegates": "^0.1.0"
+  }
+}
