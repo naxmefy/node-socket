@@ -1,14 +1,16 @@
 const delegate = require('delegates')
 const net = require('net')
 
+const defaultErrorsToAvoud = [
+    'ECONNREFUSED',
+    'ECONNRESET',
+    'ETIMEDOUT'
+]
+
 function Socket(options) {
     if (!options) options = {}
-    this.errorsToAvoid = options.errorsToAvoid || [
-        'ECONNREFUSED',
-        'ECONNRESET',
-        'ETIMEDOUT'
-    ]
     this.socket = new net.Socket(options)
+    this.socket._errorsToAvoid = options.errorsToAvoid || defaultErrorsToAvoud
     this.monitor()
 }
 
@@ -53,12 +55,13 @@ socket.monitor = function () {
     })
 
     this.socket.on('error', function (err) {
-        if (this.errorsToAvoid.indexOf(err.code) >= 0) {
-            return this._connectTimout = setTimeout(function () {
+        if (this._errorsToAvoid.indexOf(err.code) >= 0) {
+            this._connectTimout = setTimeout(function () {
                 self._reconnect()
             }, delay)
 
-            delay *= backoff
+            // TODO verify delay *= backoff
+            return
         }
 
         throw err
